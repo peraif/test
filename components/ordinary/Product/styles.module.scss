@@ -1,0 +1,60 @@
+.product {
+  max-width: 270px;
+  max-height: 402px;
+  min-height: 402px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #F5F5F7;
+
+  &__categories {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__categories-name {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+
+    color: #999999;
+  }
+
+  &__ratings-block {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 4px;
+    align-items: center;
+  }
+
+  &__main-text {
+    margin: 6px 0 7px;
+  }
+
+  &__price {
+    margin-bottom: 13px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+
+    color: #999999;
+
+    strong {
+      font-weight: 600;
+      font-size: 22px;
+      line-height: 20px;
+      color: #2E2E33;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

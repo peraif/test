@@ -1,0 +1,30 @@
+.product-button {
+  position: relative;
+  width: 100px;
+  max-width: 175px;
+  height: 40px;
+  border-radius: 90px;
+  border: none;
+  background: #4056A1;
+  color: #fff;
+  cursor: pointer;
+
+  &__active {
+    width: 100%;
+    background: #00B177;
+    transition-duration: 2000ms;
+    transition-delay: 0ms;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 175px;
+    height: inherit;
+    background: #F5F5F7;
+    border-radius: 90px;
+    z-index: -1;
+  }
+}

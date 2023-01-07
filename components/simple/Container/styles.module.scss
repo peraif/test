@@ -1,0 +1,10 @@
+.container {
+  max-width: 1780px;
+  min-width: 320px;
+  margin: 0 auto;
+  padding: 0 70px;
+
+  @media (max-width: 605px) {
+    padding: 0 10px;
+  }
+}
