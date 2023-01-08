@@ -1,0 +1,9 @@
+.product-ratings {
+  display: flex;
+  align-items: center;
+  column-gap: 3px;
+
+  img {
+    cursor: pointer;
+  }
+}

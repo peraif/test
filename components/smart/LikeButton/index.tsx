@@ -1,22 +1,35 @@
 import Image from "next/image";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import clsx from "clsx";
 
 import s from "./styles.module.scss";
+import {AppContext} from "@core/context";
+import {UpdateProductKeys} from "@core/types/product";
 
-const LikeButton = () => {
-    const [active, setActive] = useState(false);
+interface LikeButtonProps {
+    like: boolean;
+    productId: number;
+}
+
+const LikeButton = ({like, productId}: LikeButtonProps) => {
+    const [active, setActive] = useState(like);
+    const {updateProduct} = useContext(AppContext);
 
     const handleClick = () => {
-        setActive(!active);
+        if (!updateProduct) return;
+        updateProduct(productId, UpdateProductKeys.like, !like);
     }
+
+    useEffect(() => {
+        setActive(like);
+    }, [like])
 
     return (
         <div
             className={clsx(s["like-button"], active && s["like-button__active"])}
             onClick={handleClick}
         >
-            <Image src={active ? "/icons/like-red.svg" : "/icons/like.svg"} alt="like" width={16} height={14} />
+            <Image src={active ? "/icons/like.svg" : "/icons/like-gray.svg"} alt="like" width={16} height={14}/>
         </div>
     );
 };

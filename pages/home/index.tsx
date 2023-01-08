@@ -1,19 +1,17 @@
 import BasicHead from "../../components/ordinary/Head";
 import DefaultLayout from "../../layouts/Default";
 import Container from "@components/simple/Container";
-import Product from "@components/ordinary/Product";
+import Products from "@components/ordinary/Products";
 
-const HomePage = () => {
-    return (
-        <>
-            <BasicHead title={'Home page'} />
-            <DefaultLayout>
-                <Container>
-                    <Product />
-                </Container>
-            </DefaultLayout>
-        </>
-    );
-};
+const HomePage = () =>
+    <>
+        <BasicHead title={'Home page'}/>
+        <DefaultLayout>
+            <Container>
+                <Products />
+            </Container>
+        </DefaultLayout>
+    </>
+;
 
 export default HomePage;

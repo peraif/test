@@ -3,15 +3,56 @@
   margin: 0 auto 15px;
 
   &__hit {
+    display: flex;
+    width: 100%;
+    max-width: 64px;
     position: absolute;
     top: 0;
     right: -14px;
-    width: 64px;
     height: 24px;
+  }
 
-    img {
-      width: 100%;
-      height: 100%;
+  &__hit-text {
+    width: 36px;
+    height: 24px;
+    background: #F23C30;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #FFFFFF;
+  }
+
+  &__hit-left-item, &__hit-right-item {
+    width: 14px;
+    height: 24px;
+    position: relative;
+
+    &::before {
+      content: "";
+      width: 0;
+      height: 0;
+      position: absolute;
+      background: #fff;
+    }
+  }
+
+  &__hit-left-item {
+    &::before {
+      border-bottom: 24px solid #D9362B;
+      border-left: 14px solid transparent;
+    }
+  }
+
+  &__hit-right-item {
+    &::before {
+      border-top: 24px solid #D9362B;
+      border-right: 14px solid transparent;
     }
   }
 

@@ -4,14 +4,17 @@ import s from "./styles.module.scss";
 
 interface ProductImageProps {
     src: string;
+    showHit: boolean;
 }
 
-const ProductImage = ({src}: ProductImageProps) => {
+const ProductImage = ({src, showHit}: ProductImageProps) => {
     return (
         <div className={s["product-image"]}>
-            <div className={s["product-image__hit"]}>
-                <Image width={64} height={24} src="/icons/hit.svg" alt="hit-icon"/>
-            </div>
+            {showHit && (<div className={s["product-image__hit"]}>
+                <div className={s["product-image__hit-left-item"]}/>
+                <div className={s["product-image__hit-text"]}>Хит</div>
+                <div className={s["product-image__hit-right-item"]}/>
+            </div>)}
             <div className={s["product-image__main-image"]}>
                 <Image width={220} height={220} src={src} alt="product-image"/>
             </div>

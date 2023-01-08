@@ -1,20 +1,20 @@
 interface ProductReviewsProps {
-    count: number;
+    reviewsCount: number;
 }
 
-const ProductReviews = ({count}: ProductReviewsProps) => {
+const ProductReviews = ({reviewsCount}: ProductReviewsProps) => {
     const reviewText = () => {
-        if (count > 1 && count < 5) {
+        if (reviewsCount > 1 && reviewsCount < 5) {
             return ' отзыва';
         }
-        if (count === 0 || count >= 5) {
+        if (reviewsCount === 0 || reviewsCount >= 5) {
             return ' отзывов';
         }
         return ' отзыв';
     }
     return (
         <div>
-            {count + reviewText()}
+            {reviewsCount + reviewText()}
         </div>
     );
 };
