@@ -8,11 +8,13 @@ import {Paths} from "@core/routes";
 
 interface ProductButtonProps {
     productId: number;
+    price: string;
 }
 
-const ProductButton = ({productId}: ProductButtonProps) => {
+const ProductButton = ({productId, price}: ProductButtonProps) => {
     const [active, setActive] = useState(false);
-    const {addToBasket, removeFromBasket, basket} = useContext(AppContext);
+    const {addToBasket, removeFromBasket, basket, updateTotalAmount, totalAmountPriceProducts} = useContext(AppContext);
+    const totalPrice = useMemo(() => totalAmountPriceProducts?.find((item) => item.id === productId), [totalAmountPriceProducts]);
     const router = useRouter();
     const text = useMemo(() => {
         if (router.asPath === Paths.shopping_cart) {
@@ -25,14 +27,28 @@ const ProductButton = ({productId}: ProductButtonProps) => {
         }
     }, [router.asPath, active]);
 
+    const updatePrice = (price: number) => {
+        if (!updateTotalAmount) return;
+        updateTotalAmount({id: productId, total: price});
+    }
+
     const handleClick = () => {
-        if (!addToBasket || !removeFromBasket) return;
+        if (!addToBasket || !removeFromBasket || !updateTotalAmount) return;
         if (!active) {
             addToBasket(productId);
-        } else {
+            setActive(true);
+            if (totalPrice) {
+                updatePrice(totalPrice.total + parseInt(price));
+            } else {
+                updatePrice(parseInt(price));
+            }
+        } else if (router.asPath === Paths.shopping_cart) {
             removeFromBasket(productId);
+            setActive(false);
+            if (totalPrice) {
+                updatePrice(totalPrice.total - parseInt(price));
+            }
         }
-        setActive(!active);
     }
 
     useEffect(() => {

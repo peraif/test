@@ -1,9 +1,9 @@
 import React, {useEffect, useRef} from 'react';
 import Image from "next/image";
-import Link from "next/link";
 import Container from "@components/simple/Container";
 
 import s from "./styles.module.scss";
+import BasicLink from "@components/ordinary/BasicLink";
 
 const Header = () => {
     const ref = useRef<HTMLElement | null>(null);
@@ -21,8 +21,9 @@ const Header = () => {
         <header ref={ref} className={s.header}>
             <Container>
                 <div className={s["header__items"]}>
-                    <Link href={'/'}>Home</Link>
-                    <Link
+                    <BasicLink href={'/'}>Home</BasicLink>
+                    <BasicLink href={'/favorites'}>Favorites</BasicLink>
+                    <BasicLink
                         href={'/shopping-cart'}
                         className={s["header__shopping-link"]}
                     >
@@ -33,7 +34,7 @@ const Header = () => {
                             src="/images/shopping-cart.svg"
                             alt="shopping-cart"
                         />
-                    </Link>
+                    </BasicLink>
                 </div>
             </Container>
         </header>

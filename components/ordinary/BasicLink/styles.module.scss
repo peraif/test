@@ -1,0 +1,11 @@
+.basic-link {
+  cursor: pointer;
+
+  &:hover {
+    opacity: .7;
+  }
+
+  &__active {
+    border-bottom: 1px solid;
+  }
+}

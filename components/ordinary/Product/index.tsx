@@ -5,29 +5,41 @@ import ProductReviews from "@components/smart/ProductReviews";
 import ProductButton from "@components/smart/ProductButton";
 import LikeButton from "@components/smart/LikeButton";
 import {IProduct} from "@core/types/product";
+import {useContext, useMemo} from "react";
+import {AppContext} from "@core/context";
+import BasketCountButtons from "@components/smart/BasketCountButtons";
+import {useRouter} from "next/router";
+import {Paths} from "@core/routes";
 
 interface ProductProps {
     item?: IProduct;
 }
+
 const Product = ({item}: ProductProps) => {
+    const {asPath} = useRouter();
+    const {basket} = useContext(AppContext);
+    const countProductInBasket = useMemo(() => basket?.find((elem) => elem.id === item?.id), [basket, item]);
 
     if (!item) return null;
 
     return (
         <div className={s.product}>
-            <CartImage showHit={item.hit} src="/images/test-product.svg" />
+            <CartImage showHit={item.hit} src="/images/test-product.svg"/>
             <div className={s["product__categories"]}>
                 <span className={s["product__categories-name"]}>{item.category}</span>
                 <div className={s["product__ratings-block"]}>
-                    <ProductRating productId={item.id} ratingCount={item.rating_count} />
-                    <ProductReviews reviewsCount={item.reviews_count} />
+                    <ProductRating productId={item.id} ratingCount={item.rating_count}/>
+                    <ProductReviews reviewsCount={item.reviews_count}/>
                 </div>
             </div>
             <p className={s["product__main-text"]}>{item.text}</p>
             <span className={s["product__price"]}><strong>{item.price} ₽  </strong>/шт.</span>
             <div className={s["product__buttons"]}>
-                <ProductButton productId={item.id} />
-                <LikeButton productId={item.id} like={item.like} />
+                <ProductButton price={item.price} productId={item.id}/>
+                {(asPath === Paths.shopping_cart && countProductInBasket) &&
+                    <BasketCountButtons price={item.price} productId={item.id} count={countProductInBasket.count}/>
+                }
+                {asPath !== Paths.shopping_cart && (<LikeButton productId={item.id} like={item.like}/>)}
             </div>
         </div>
     );

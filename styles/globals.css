@@ -1,9 +1,33 @@
 body {
   background: #fff;
   margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body::-webkit-scrollbar {
+  width: 2px; /* ширина для вертикального скролла */
+  height: 20px; /* высота для горизонтального скролла */
+  background-color: #4056A1;
+}
+
+/* ползунок скроллбара */
+body::-webkit-scrollbar-thumb {
+  height: 10px;
+  background-color: #e5e5e5;
+  border-radius: 9em;
+  box-shadow: inset 1px 1px 10px #f3faf7;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #4056A1;
+}
+
+h1 {
+  font-family: 'Alegreya SC', serif;
 }
 
 a {
   color: initial;
   text-decoration: none;
 }
+
