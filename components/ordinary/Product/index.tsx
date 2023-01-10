@@ -7,9 +7,9 @@ import LikeButton from "@components/smart/LikeButton";
 import {IProduct} from "@core/types/product";
 import {useContext, useMemo} from "react";
 import {AppContext} from "@core/context";
-import BasketCountButtons from "@components/smart/BasketCountButtons";
 import {useRouter} from "next/router";
 import {Paths} from "@core/routes";
+import CartProductCountButtons from "@components/smart/CartProductCountButtons";
 
 interface ProductProps {
     item?: IProduct;
@@ -17,8 +17,8 @@ interface ProductProps {
 
 const Product = ({item}: ProductProps) => {
     const {asPath} = useRouter();
-    const {basket} = useContext(AppContext);
-    const countProductInBasket = useMemo(() => basket?.find((elem) => elem.id === item?.id), [basket, item]);
+    const {cartItems} = useContext(AppContext);
+    const countProductInCart = useMemo(() => cartItems?.find((elem) => elem.id === item?.id), [cartItems, item]);
 
     if (!item) return null;
 
@@ -36,8 +36,8 @@ const Product = ({item}: ProductProps) => {
             <span className={s["product__price"]}><strong>{item.price} ₽  </strong>/шт.</span>
             <div className={s["product__buttons"]}>
                 <ProductButton price={item.price} productId={item.id}/>
-                {(asPath === Paths.shopping_cart && countProductInBasket) &&
-                    <BasketCountButtons price={item.price} productId={item.id} count={countProductInBasket.count}/>
+                {(asPath === Paths.shopping_cart && countProductInCart) &&
+                    <CartProductCountButtons productId={item.id} count={countProductInCart.count}/>
                 }
                 {asPath !== Paths.shopping_cart && (<LikeButton productId={item.id} like={item.like}/>)}
             </div>

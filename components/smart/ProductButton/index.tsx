@@ -1,11 +1,10 @@
 import {useContext, useEffect, useMemo, useState} from "react";
 import clsx from "clsx";
-
-import s from "./styles.module.scss";
 import {AppContext} from "@core/context";
 import {useRouter} from "next/router";
 import {Paths} from "@core/routes";
 
+import s from "./styles.module.scss";
 interface ProductButtonProps {
     productId: number;
     price: string;
@@ -13,8 +12,10 @@ interface ProductButtonProps {
 
 const ProductButton = ({productId, price}: ProductButtonProps) => {
     const [active, setActive] = useState(false);
-    const {addToBasket, removeFromBasket, basket, updateTotalAmount, totalAmountPriceProducts} = useContext(AppContext);
-    const totalPrice = useMemo(() => totalAmountPriceProducts?.find((item) => item.id === productId), [totalAmountPriceProducts]);
+    const {
+        cartItems,
+        updateCart
+    } = useContext(AppContext);
     const router = useRouter();
     const text = useMemo(() => {
         if (router.asPath === Paths.shopping_cart) {
@@ -27,32 +28,19 @@ const ProductButton = ({productId, price}: ProductButtonProps) => {
         }
     }, [router.asPath, active]);
 
-    const updatePrice = (price: number) => {
-        if (!updateTotalAmount) return;
-        updateTotalAmount({id: productId, total: price});
-    }
-
     const handleClick = () => {
-        if (!addToBasket || !removeFromBasket || !updateTotalAmount) return;
+        if (!updateCart) return;
         if (!active) {
-            addToBasket(productId);
+            updateCart({id: productId, add: true});
             setActive(true);
-            if (totalPrice) {
-                updatePrice(totalPrice.total + parseInt(price));
-            } else {
-                updatePrice(parseInt(price));
-            }
         } else if (router.asPath === Paths.shopping_cart) {
-            removeFromBasket(productId);
+            updateCart({id: productId, remove: true});
             setActive(false);
-            if (totalPrice) {
-                updatePrice(totalPrice.total - parseInt(price));
-            }
         }
     }
 
     useEffect(() => {
-        if (basket?.length && basket.find(x => x.id === productId)) {
+        if (cartItems?.length && cartItems.find(x => x.id === productId)) {
             setActive(true);
         }
     }, [])
