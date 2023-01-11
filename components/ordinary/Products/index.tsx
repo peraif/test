@@ -4,6 +4,7 @@ import {AppContext} from "@core/context";
 import ProductsWrapper from "@components/simple/ProductsWrapper";
 import Pagination from "@components/smart/Pagination";
 import {UsePaginate} from "@core/hooks/use-paginate";
+import {PAGINATION_GAP} from "@core/constants/pagination";
 
 const Products = () => {
     const {products} = useContext(AppContext);
@@ -19,7 +20,7 @@ const Products = () => {
         showEndButton,
         showStartButton
     } = UsePaginate({
-        gap: 10,
+        gap: PAGINATION_GAP,
         maxLength: products.length
     })
     const productItems = useMemo(() => products.slice(startId, endId), [startId, endId, products]);
@@ -31,7 +32,7 @@ const Products = () => {
                     <Product key={item.id} item={item}/>
                 ))}
             </ProductsWrapper>
-            {products.length > 10 && (<Pagination
+            {products.length > PAGINATION_GAP && (<Pagination
                 showStartButton={showStartButton}
                 showEndButton={showEndButton}
                 goToStart={goToStart}

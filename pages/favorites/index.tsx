@@ -8,6 +8,7 @@ import ProductsWrapper from "@components/simple/ProductsWrapper";
 import PageTitle from "@components/simple/PageTitle";
 import {UsePaginate} from "@core/hooks/use-paginate";
 import Pagination from "@components/smart/Pagination";
+import {PAGINATION_GAP} from "@core/constants/pagination";
 
 function Favorites() {
     const {products} = useContext(AppContext);
@@ -24,7 +25,7 @@ function Favorites() {
         showEndButton,
         showStartButton
     } = UsePaginate({
-        gap: 10,
+        gap: PAGINATION_GAP,
         maxLength: favorites.length
     })
     const favoriteItems = useMemo(() => favorites?.slice(startId, endId), [startId, endId, products]);
@@ -43,7 +44,7 @@ function Favorites() {
                                 item={products?.find((x) => x.id === item.id)}
                             />)}
                     </ProductsWrapper>
-                    {favorites.length > 10 &&(<Pagination
+                    {favorites.length > PAGINATION_GAP && (<Pagination
                         showStartButton={showStartButton}
                         showEndButton={showEndButton}
                         goToStart={goToStart}

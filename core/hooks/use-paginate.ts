@@ -1,87 +1,100 @@
 import {useEffect, useMemo, useState} from "react";
+import {
+    FIRST_PAGE,
+    INITIAL_ITEM_ID,
+    MAX_VISIBLE_BUTTONS, MINIMUM_THRESHOLD,
+    NUMBER_OF_BUTTONS_LEFT,
+    NUMBER_OF_BUTTONS_RIGHT,
+    PAGINATION_GAP
+} from "@core/constants/pagination";
 
 interface IUsePaginate {
     maxLength: number;
     gap: number;
 }
 
-export function UsePaginate({maxLength = 0, gap = 10}: IUsePaginate) {
+export function UsePaginate({maxLength = 0, gap = PAGINATION_GAP}: IUsePaginate) {
     const [showEndButton, setShowEndButton] = useState(false);
     const [showStartButton, setShowStartButton] = useState(false);
     const [ids, setIds] = useState({
-        startId: 0,
+        startId: INITIAL_ITEM_ID,
         endId: gap
     });
-    const [activePage, setActivePage] = useState(1);
+    const [activePage, setActivePage] = useState(FIRST_PAGE);
+    const maxPages = maxLength / gap;
 
     const allPagesNumber = useMemo(() => {
         let result = [];
         for (let i = 0; i < maxLength / gap; i++) {
-            result.push(i + 1);
+            result.push(i + FIRST_PAGE);
         }
         return result;
     }, [maxLength, gap]);
 
-    const lastPage = allPagesNumber[allPagesNumber.length - 1];
+    const lastPage = allPagesNumber[allPagesNumber.length - FIRST_PAGE];
 
     const totalPages = useMemo(() => {
-        if (maxLength / gap > 7 && activePage >= 5) {
-            if (activePage < (lastPage - 3)) {
-                return allPagesNumber.slice(activePage - 4, activePage + 3);
+        if (maxPages > MAX_VISIBLE_BUTTONS && activePage >= MINIMUM_THRESHOLD) {
+            if (activePage < (lastPage - NUMBER_OF_BUTTONS_RIGHT)) {
+                return allPagesNumber.slice(activePage - NUMBER_OF_BUTTONS_LEFT, activePage + NUMBER_OF_BUTTONS_RIGHT);
             } else if (activePage === lastPage) {
-                return allPagesNumber.slice(activePage - 7);
+                return allPagesNumber.slice(activePage - MAX_VISIBLE_BUTTONS);
             } else {
-                return allPagesNumber.slice(activePage - (7 - ((maxLength / gap) - activePage + 1)));
+                return allPagesNumber.slice(activePage - (MAX_VISIBLE_BUTTONS - (maxPages - activePage + FIRST_PAGE)));
             }
         }
-        return allPagesNumber.slice(0, 7);
-    }, [activePage, maxLength, gap, allPagesNumber]);
+        return allPagesNumber.slice(0, MAX_VISIBLE_BUTTONS);
+    }, [activePage, allPagesNumber]);
 
     useEffect(() => {
         window.scrollTo({top: 0, behavior: 'smooth'});
     }, [activePage]);
 
     useEffect(() => {
-        if (maxLength / gap > 7 && activePage < (lastPage - 3) && activePage >= 5) {
-            setShowEndButton(true);
-        } else {
-            setShowEndButton(false);
+        if (maxPages > MAX_VISIBLE_BUTTONS) {
+            if (activePage <= (lastPage - NUMBER_OF_BUTTONS_LEFT)) {
+                setShowEndButton(true);
+            } else {
+                setShowEndButton(false);
+            }
+            if (activePage > (allPagesNumber[0] + NUMBER_OF_BUTTONS_LEFT)) {
+                setShowStartButton(true);
+            } else {
+                setShowStartButton(false);
+            }
         }
-        if (maxLength / gap > 7 && activePage > (allPagesNumber[0] + 3)) {
-            setShowStartButton(true);
-        } else {
-            setShowStartButton(false);
-        }
-    }, [maxLength, gap, activePage])
+    }, [activePage])
+
+    const startFromTheFirstPage = () => {
+        setIds({
+            startId: INITIAL_ITEM_ID,
+            endId: gap
+        })
+    }
+
+    const toTheLastPage = (page: number) => {
+        setIds({
+            startId: (page * gap) - gap,
+            endId: page * gap
+        })
+    }
 
     const handleClickPaginate = (page: number) => {
-        if (page === 1) {
-            setIds({
-                startId: 0,
-                endId: gap
-            })
+        if (page === FIRST_PAGE) {
+            startFromTheFirstPage();
         } else {
-            setIds({
-                startId: (page * gap) - gap,
-                endId: page * gap
-            })
+            toTheLastPage(page);
         }
         setActivePage(page);
     }
 
     const goToStart = () => {
-        setIds({
-            startId: 0,
-            endId: gap
-        })
-        setActivePage(1);
+        startFromTheFirstPage();
+        setActivePage(FIRST_PAGE);
     };
     const goToEnd = () => {
         setActivePage(lastPage);
-        setIds({
-            startId: (lastPage * gap) - gap,
-            endId: lastPage * gap
-        })
+        toTheLastPage(lastPage);
     };
 
     return {

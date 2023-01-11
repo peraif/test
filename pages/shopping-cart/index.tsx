@@ -9,6 +9,7 @@ import {UsePaginate} from "@core/hooks/use-paginate";
 import EmptyCart from "@components/ordinary/EmptyCart";
 import CartProducts from "@components/ordinary/CartProducts";
 import CartHeader from "@components/ordinary/CartHeader";
+import {PAGINATION_GAP} from "@core/constants/pagination";
 
 const ShoppingCartPage = () => {
     const {cartItems} = useContext(AppContext);
@@ -24,7 +25,7 @@ const ShoppingCartPage = () => {
         showEndButton,
         showStartButton
     } = UsePaginate({
-        gap: 10,
+        gap: PAGINATION_GAP,
         maxLength: cartItems.length
     })
     const cartProductItems = useMemo(() => cartItems.slice(startId, endId), [startId, endId, cartItems]);
@@ -38,7 +39,7 @@ const ShoppingCartPage = () => {
                     <CartHeader view={cartItems.length > 0}/>
                     <EmptyCart view={cartItems.length === 0}/>
                     <CartProducts view={cartItems.length > 0} items={cartProductItems}/>
-                    {cartItems.length > 10 && (<Pagination
+                    {cartItems.length > PAGINATION_GAP && (<Pagination
                         showStartButton={showStartButton}
                         showEndButton={showEndButton}
                         goToStart={goToStart}
