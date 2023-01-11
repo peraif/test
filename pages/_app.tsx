@@ -1,6 +1,8 @@
 import '../styles/globals.css'
 import type {AppProps} from 'next/app'
 import {useEffect, useState} from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {CartItem, IUpdateCartItems} from "@core/types/cart";
 import {AppContext} from "@core/context";
 import {IProduct, UpdateProductKeys} from "@core/types/product";
@@ -14,7 +16,7 @@ export default function App({Component, pageProps}: AppProps) {
     const [loadedPage, setLoadedPage] = useState(false);
     const {events} = useRouter();
 
-    const updateCartItems = (id: number, add?: boolean) => {
+    const updateCartItems = (id: string, add?: boolean) => {
         setCartItems(prev =>
             prev.map((item) => item.id === id ? ({...item, count: add ? item.count + 1 : item.count - 1}) : item)
         );
@@ -38,7 +40,9 @@ export default function App({Component, pageProps}: AppProps) {
         }
     }
 
-    function updateProduct<T>(id: number, key: UpdateProductKeys, value: T) {
+    const clearCart = () => setCartItems([]);
+
+    function updateProduct<T>(id: string, key: UpdateProductKeys, value: T) {
         if (products.length && products.find(x => x.id === id)) {
             setProducts(prev => prev.map(product => product.id === id ? ({...product, [key]: value}) : product));
         }
@@ -59,10 +63,12 @@ export default function App({Component, pageProps}: AppProps) {
             cartItems,
             products,
             updateProduct,
-            updateCart
+            updateCart,
+            clearCart
         }}>
             <Component {...pageProps} />
             {loadedPage && <PagePreloader/>}
+            <ToastContainer />
         </AppContext.Provider>
     );
 }

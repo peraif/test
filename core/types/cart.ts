@@ -1,12 +1,13 @@
 export interface CartItem {
-    id: number;
+    id: string;
     count: number;
 }
 export interface IUpdateCartItems {
-    id: number;
+    id: string;
     add?: boolean;
     remove?: boolean;
     decrease?: boolean;
+    clear?: boolean;
 }
 
 export interface TotalAmountItem {

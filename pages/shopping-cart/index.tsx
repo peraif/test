@@ -1,15 +1,33 @@
 import BasicHead from "@components/ordinary/Head";
 import DefaultLayout from "@layouts/Default";
 import Container from "@components/simple/Container";
-import {useContext} from "react";
+import React, {useContext, useMemo} from "react";
 import {AppContext} from "@core/context";
-import Product from "@components/ordinary/Product";
-import ProductsWrapper from "@components/simple/ProductsWrapper";
 import PageTitle from "@components/simple/PageTitle";
-import CartTotalAmount from "@components/ordinary/CartTotalAmount";
+import Pagination from "@components/smart/Pagination";
+import {UsePaginate} from "@core/hooks/use-paginate";
+import EmptyCart from "@components/ordinary/EmptyCart";
+import CartProducts from "@components/ordinary/CartProducts";
+import CartHeader from "@components/ordinary/CartHeader";
 
 const ShoppingCartPage = () => {
-    const {cartItems, products} = useContext(AppContext);
+    const {cartItems} = useContext(AppContext);
+    if (!cartItems) return null;
+    const {
+        totalPages,
+        handleClickPaginate,
+        startId,
+        endId,
+        activePage,
+        goToStart,
+        goToEnd,
+        showEndButton,
+        showStartButton
+    } = UsePaginate({
+        gap: 10,
+        maxLength: cartItems.length
+    })
+    const cartProductItems = useMemo(() => cartItems.slice(startId, endId), [startId, endId, cartItems]);
 
     return (
         <>
@@ -17,16 +35,18 @@ const ShoppingCartPage = () => {
             <DefaultLayout>
                 <Container>
                     <PageTitle>Shopping Cart</PageTitle>
-                    <CartTotalAmount/>
-                    <ProductsWrapper>
-                        {!cartItems?.length
-                            ? 'Корзина пуста'
-                            : cartItems.map((item) =>
-                                <Product
-                                    key={item.id}
-                                    item={products?.find((x) => x.id === item.id)}
-                                />)}
-                    </ProductsWrapper>
+                    <CartHeader view={cartItems.length > 0}/>
+                    <EmptyCart view={cartItems.length === 0}/>
+                    <CartProducts view={cartItems.length > 0} items={cartProductItems}/>
+                    {cartItems.length > 10 && (<Pagination
+                        showStartButton={showStartButton}
+                        showEndButton={showEndButton}
+                        goToStart={goToStart}
+                        goToEnd={goToEnd}
+                        activePage={activePage}
+                        handleClickPaginate={handleClickPaginate}
+                        totalPages={totalPages}
+                    />)}
                 </Container>
             </DefaultLayout>
         </>

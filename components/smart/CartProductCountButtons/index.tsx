@@ -7,7 +7,7 @@ import s from "./styles.module.scss";
 
 interface CartProductCountButtonsProps {
     count: number;
-    productId: number;
+    productId: string;
 }
 
 const CartProductCountButtons = ({count, productId}: CartProductCountButtonsProps) => {

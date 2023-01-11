@@ -5,10 +5,11 @@ import clsx from "clsx";
 import s from "./styles.module.scss";
 import {AppContext} from "@core/context";
 import {UpdateProductKeys} from "@core/types/product";
+import {notifyError, notifySuccess} from "@core/notifications";
 
 interface LikeButtonProps {
     like: boolean;
-    productId: number;
+    productId: string;
 }
 
 const LikeButton = ({like, productId}: LikeButtonProps) => {
@@ -18,6 +19,11 @@ const LikeButton = ({like, productId}: LikeButtonProps) => {
     const handleClick = () => {
         if (!updateProduct) return;
         updateProduct(productId, UpdateProductKeys.like, !like);
+        if (like) {
+            notifyError('Товар удален из списка избранных!')
+        } else {
+            notifySuccess('Товар был успешно добавлен в список избранных!')
+        }
     }
 
     useEffect(() => {

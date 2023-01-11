@@ -8,7 +8,7 @@ import {AppContext} from "@core/context";
 
 interface ProductRatingProps {
     ratingCount: number;
-    productId: number;
+    productId: string;
 }
 
 const ProductRating = ({ratingCount, productId}: ProductRatingProps) => {

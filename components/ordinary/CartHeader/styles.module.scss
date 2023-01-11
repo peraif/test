@@ -1,0 +1,13 @@
+.cart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 10px;
+
+  &__clear-button {
+    width: 100%;
+    max-width: fit-content;
+    white-space: nowrap;
+    padding: 0 10px;
+  }
+}

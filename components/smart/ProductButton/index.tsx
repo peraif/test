@@ -6,11 +6,11 @@ import {Paths} from "@core/routes";
 
 import s from "./styles.module.scss";
 interface ProductButtonProps {
-    productId: number;
+    productId: string;
     price: string;
 }
 
-const ProductButton = ({productId, price}: ProductButtonProps) => {
+const ProductButton = ({productId}: ProductButtonProps) => {
     const [active, setActive] = useState(false);
     const {
         cartItems,

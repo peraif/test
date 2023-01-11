@@ -4,7 +4,7 @@ export interface IProductRatingStar {
 }
 
 export interface IProduct {
-    id: number;
+    id: string;
     category: string;
     text: string;
     price: string;
