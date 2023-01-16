@@ -1,4 +1,4 @@
-export interface IProductRatingStar {
+export interface IProductRating {
     id: number;
     status: boolean;
 }
@@ -12,10 +12,22 @@ export interface IProduct {
     rating_count: number;
     hit: boolean;
     like: boolean;
+    reviews?: IReview[];
 }
 
 export enum UpdateProductKeys {
     reviews_count = 'reviews_count',
     rating_count = 'rating_count',
     like = 'like'
+}
+
+export interface IReviewItem {
+    id: string;
+    text: string;
+    name: string;
+}
+
+export interface IReview {
+    review: IReviewItem;
+    answers?: IReviewItem[];
 }

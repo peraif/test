@@ -23,7 +23,11 @@ const EmptyCart = ({view}: EmptyCartProps) => {
                 <Image width={400} height={300} src="/images/empty.webp" alt='empty cart'/>
             </div>
             <h2>Корзина пуста</h2>
-            <p>Посмотрите предложения на главной странице.</p>
+            <p className={s["empty-cart__text"]}>
+                Посмотрите предложения на {' '}
+                <strong onClick={navigateToHome}>главной странице</strong>{' '}
+                или перейдите в <strong onClick={navigateToFavorites}>избранное</strong>!.
+            </p>
             <div className={s["empty-cart__buttons"]}>
                 <Button onClick={navigateToHome} variant="outlined">На главную</Button>
                 <Button onClick={navigateToFavorites} variant="contained">В избранное</Button>

@@ -1,9 +1,10 @@
 import React, {useEffect, useRef} from 'react';
 import Image from "next/image";
 import Container from "@components/simple/Container";
+import BasicLink from "@components/ordinary/BasicLink";
+import {Paths} from "@core/routes";
 
 import s from "./styles.module.scss";
-import BasicLink from "@components/ordinary/BasicLink";
 
 const Header = () => {
     const ref = useRef<HTMLElement | null>(null);
@@ -21,10 +22,10 @@ const Header = () => {
         <header ref={ref} className={s.header}>
             <Container>
                 <div className={s["header__items"]}>
-                    <BasicLink href={'/'}>Home</BasicLink>
-                    <BasicLink href={'/favorites'}>Favorites</BasicLink>
+                    <BasicLink href={Paths.home}>Home</BasicLink>
+                    <BasicLink href={`/${Paths.favorites}`}>Favorites</BasicLink>
                     <BasicLink
-                        href={'/shopping-cart'}
+                        href={`/${Paths.shopping_cart}`}
                         className={s["header__shopping-link"]}
                     >
                         Shopping Cart {' '}

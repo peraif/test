@@ -13,6 +13,7 @@ import PagePreloader from "@components/ordinary/PagePreloader";
 export default function App({Component, pageProps}: AppProps) {
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
     const [products, setProducts] = useState<IProduct[]>(ProductsData);
+    const [productData, setProductData] = useState<IProduct>();
     const [loadedPage, setLoadedPage] = useState(false);
     const {events} = useRouter();
 
@@ -64,7 +65,9 @@ export default function App({Component, pageProps}: AppProps) {
             products,
             updateProduct,
             updateCart,
-            clearCart
+            clearCart,
+            setProductData,
+            productData,
         }}>
             <Component {...pageProps} />
             {loadedPage && <PagePreloader/>}

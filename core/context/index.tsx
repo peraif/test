@@ -9,6 +9,8 @@ interface AppContextInterface {
     updateProduct?: <T>(id: string, key: UpdateProductKeys, value: T) => void;
     updateCart?: ({id, add, remove}: IUpdateCartItems) => void;
     clearCart?: () => void;
+    setProductData?: (value: IProduct) => void;
+    productData?: IProduct;
 }
 
 export const AppContext = createContext<AppContextInterface>({});

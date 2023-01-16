@@ -1,0 +1,34 @@
+.product-page-item {
+
+  &__block {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__image {
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+      max-width: 800px;
+    }
+  }
+
+  &__category {
+    font-size: 20px;
+  }
+
+  &__ratings-block {
+    display: flex;
+    column-gap: 10px;
+  }
+
+  &__text {
+    margin-top: 10px;
+  }
+}

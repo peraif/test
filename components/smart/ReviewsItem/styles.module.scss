@@ -1,0 +1,24 @@
+.reviews-item {
+  display: flex;
+  column-gap: 10px;
+
+  li {
+    list-style-type: none;
+  }
+
+  p {
+    margin: 0 0 15px;
+  }
+
+  &__answers {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+
+    li {
+      display: flex;
+      column-gap: 15px;
+    }
+  }
+}

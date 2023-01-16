@@ -1,7 +1,6 @@
-import s from "./styles.module.scss";
+import React from "react";
 import CartImage from "@components/ordinary/ProductImage";
 import ProductRating from "@components/smart/ProductRating";
-import ProductReviews from "@components/smart/ProductReviews";
 import ProductButton from "@components/smart/ProductButton";
 import LikeButton from "@components/smart/LikeButton";
 import {IProduct} from "@core/types/product";
@@ -10,15 +9,30 @@ import {AppContext} from "@core/context";
 import {useRouter} from "next/router";
 import {Paths} from "@core/routes";
 import CartProductCountButtons from "@components/smart/CartProductCountButtons";
+import ProductCategory from "@components/simple/ProductCategory";
+import ProductPrice from "@components/simple/ProductPrice";
+import ProductText from "@components/simple/ProductText";
+import ProductReviewsCount from "@components/smart/ProductReviewsCount";
+
+import s from "./styles.module.scss";
 
 interface ProductProps {
     item?: IProduct;
 }
 
 const Product = ({item}: ProductProps) => {
-    const {asPath} = useRouter();
-    const {cartItems} = useContext(AppContext);
+    const {asPath, push} = useRouter();
+    const {cartItems, setProductData} = useContext(AppContext);
     const countProductInCart = useMemo(() => cartItems?.find((elem) => elem.id === item?.id), [cartItems, item]);
+
+    const openProductPage = () => {
+        push(`/${Paths.products}/${item?.id}`).then(() => {
+            if (!setProductData || !item) return;
+            setProductData(item);
+        });
+    };
+
+    const openReviews = () => push(`/${Paths.products}/${item?.id}/${Paths.reviews}`);
 
     if (!item) return null;
 
@@ -26,20 +40,27 @@ const Product = ({item}: ProductProps) => {
         <div className={s.product}>
             <CartImage showHit={item.hit} src="/images/test-product.svg"/>
             <div className={s["product__categories"]}>
-                <span className={s["product__categories-name"]}>{item.category}</span>
+                <ProductCategory>{item.category}</ProductCategory>
                 <div className={s["product__ratings-block"]}>
                     <ProductRating productId={item.id} ratingCount={item.rating_count}/>
-                    <ProductReviews reviewsCount={item.reviews_count}/>
+                    <ProductReviewsCount onClick={openReviews} reviewsCount={item.reviews_count}/>
                 </div>
             </div>
-            <p className={s["product__main-text"]}>{item.text}</p>
-            <span className={s["product__price"]}><strong>{item.price} ₽  </strong>/шт.</span>
+            <ProductText
+                text={item.text}
+                onClick={openProductPage}
+            />
+            <ProductPrice
+                price={item.price}
+                measurementName={'шт.'}
+                prefix={'₽'}
+            />
             <div className={s["product__buttons"]}>
                 <ProductButton price={item.price} productId={item.id}/>
-                {(asPath === Paths.shopping_cart && countProductInCart) &&
+                {(asPath.includes(Paths.shopping_cart) && countProductInCart) &&
                     <CartProductCountButtons productId={item.id} count={countProductInCart.count}/>
                 }
-                {asPath !== Paths.shopping_cart && (<LikeButton productId={item.id} like={item.like}/>)}
+                {!asPath.includes(Paths.shopping_cart) && (<LikeButton productId={item.id} like={item.like}/>)}
             </div>
         </div>
     );

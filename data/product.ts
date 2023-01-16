@@ -1,7 +1,7 @@
-import {IProduct, IProductRatingStar} from "@core/types/product";
+import {IProduct, IProductRating} from "@core/types/product";
 import { v4 as uuidv4 } from 'uuid';
 
-export const ProductRatingStar: IProductRatingStar[] = [
+export const ProductRatingStar: IProductRating[] = [
     {
         id: 1,
         status: false
@@ -29,11 +29,69 @@ export const ProductsData: IProduct[] = [
         id: uuidv4(),
         category: 'electronics',
         price: '115',
-        text: 'Samsung 49-Inch CHG90 144Hz Curved Gaming Monitor (LC49HG90DMNXZA) – Super Ultrawide Screen QLED',
+        text: 'Samsung',
         reviews_count: 1,
         rating_count: 1,
         hit: true,
         like: true,
+        reviews: [
+            {
+                review: {
+                    id: uuidv4(),
+                    text: 'test review',
+                    name: 'Test'
+                },
+                answers: [
+                    {
+                        id: uuidv4(),
+                        text: 'test answer review',
+                        name: 'Answer'
+                    }
+                ]
+            },
+            {
+                review: {
+                    id: uuidv4(),
+                    text: 'test review',
+                    name: 'Test'
+                },
+                answers: [
+                    {
+                        id: uuidv4(),
+                        text: 'test answer review',
+                        name: 'Answer'
+                    }
+                ]
+            },
+            {
+                review: {
+                    id: uuidv4(),
+                    text: 'test review',
+                    name: 'Test'
+                },
+                answers: [
+                    {
+                        id: uuidv4(),
+                        text: 'test answer review',
+                        name: 'Answer'
+                    }
+                ]
+            },
+            {
+                review: {
+                    id: uuidv4(),
+                    text: 'test review',
+                    name: 'Test'
+                },
+                answers: [
+                    {
+                        id: uuidv4(),
+                        text: 'test answer review',
+                        name: 'Answer'
+                    }
+                ]
+            }
+        ]
     },
     {
         id: uuidv4(),
