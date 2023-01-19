@@ -39,13 +39,28 @@ export const ProductsData: IProduct[] = [
                 review: {
                     id: uuidv4(),
                     text: 'test review',
-                    name: 'Test'
+                    name: 'Test - 1'
                 },
                 answers: [
                     {
                         id: uuidv4(),
                         text: 'test answer review',
-                        name: 'Answer'
+                        name: 'Answer - 1.1'
+                    },
+                    {
+                        id: uuidv4(),
+                        text: 'test answer review',
+                        name: 'Answer - 1.2'
+                    },
+                    {
+                        id: uuidv4(),
+                        text: 'test answer review',
+                        name: 'Answer - 1.3'
+                    },
+                    {
+                        id: uuidv4(),
+                        text: 'test answer review',
+                        name: 'Answer - 1.4'
                     }
                 ]
             },
@@ -53,13 +68,13 @@ export const ProductsData: IProduct[] = [
                 review: {
                     id: uuidv4(),
                     text: 'test review',
-                    name: 'Test'
+                    name: 'Test - 2'
                 },
                 answers: [
                     {
                         id: uuidv4(),
                         text: 'test answer review',
-                        name: 'Answer'
+                        name: 'Answer - 2.1'
                     }
                 ]
             },
@@ -67,13 +82,13 @@ export const ProductsData: IProduct[] = [
                 review: {
                     id: uuidv4(),
                     text: 'test review',
-                    name: 'Test'
+                    name: 'Test - 3'
                 },
                 answers: [
                     {
                         id: uuidv4(),
                         text: 'test answer review',
-                        name: 'Answer'
+                        name: 'Answer - 3.1'
                     }
                 ]
             },
@@ -81,13 +96,13 @@ export const ProductsData: IProduct[] = [
                 review: {
                     id: uuidv4(),
                     text: 'test review',
-                    name: 'Test'
+                    name: 'Test - 4'
                 },
                 answers: [
                     {
                         id: uuidv4(),
                         text: 'test answer review',
-                        name: 'Answer'
+                        name: 'Answer - 4.1'
                     }
                 ]
             }

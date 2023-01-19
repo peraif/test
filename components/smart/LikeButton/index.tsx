@@ -1,5 +1,5 @@
 import Image from "next/image";
-import {useContext, useEffect, useState} from "react";
+import {MouseEvent, useContext, useEffect, useRef, useState} from "react";
 import clsx from "clsx";
 
 import s from "./styles.module.scss";
@@ -15,6 +15,7 @@ interface LikeButtonProps {
 const LikeButton = ({like, productId}: LikeButtonProps) => {
     const [active, setActive] = useState(like);
     const {updateProduct} = useContext(AppContext);
+    const ref = useRef<HTMLDivElement | null>(null)
 
     const handleClick = () => {
         if (!updateProduct) return;
@@ -28,14 +29,28 @@ const LikeButton = ({like, productId}: LikeButtonProps) => {
 
     useEffect(() => {
         setActive(like);
+        if (ref.current) {
+            ref.current.onmouseenter = () => {
+                setActive(true)
+            }
+            ref.current.onmouseleave = () => {
+                setActive(like)
+            }
+        }
     }, [like])
 
     return (
         <div
+            ref={ref}
             className={clsx(s["like-button"], active && s["like-button__active"])}
             onClick={handleClick}
         >
-            <Image src={active ? "/icons/like.svg" : "/icons/like-gray.svg"} alt="like" width={16} height={14}/>
+            <Image
+                src={active ? "/icons/like.svg" : "/icons/like-gray.svg"}
+                alt="like"
+                width={16}
+                height={14}
+            />
         </div>
     );
 };

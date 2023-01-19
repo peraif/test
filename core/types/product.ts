@@ -18,13 +18,15 @@ export interface IProduct {
 export enum UpdateProductKeys {
     reviews_count = 'reviews_count',
     rating_count = 'rating_count',
-    like = 'like'
+    like = 'like',
+    reviews = 'reviews'
 }
 
 export interface IReviewItem {
     id: string;
     text: string;
     name: string;
+    marked_user?: string | null;
 }
 
 export interface IReview {

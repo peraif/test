@@ -48,7 +48,7 @@ const ProductPageItem = ({item}: ProductPageItemProps) => {
                 <ProductCategory className={s["product-page-item__category"]}>{item.category}</ProductCategory>
                 <div className={s["product-page-item__ratings-block"]}>
                     <ProductRating productId={item.id} ratingCount={item.rating_count}/>
-                    <ProductReviewsCount onClick={openReviews} reviewsCount={item.reviews_count}/>
+                    {item.reviews && item.reviews.length > 0 && (<ProductReviewsCount onClick={openReviews} reviewsCount={item.reviews.length}/>)}
                 </div>
             </div>
             <ProductText onClick={openProductPage} className={s["product-page-item__text"]} text={item.text}/>
@@ -59,10 +59,10 @@ const ProductPageItem = ({item}: ProductPageItemProps) => {
             />
             <div className={s["product-page-item__block"]}>
                 <ProductButton price={item.price} productId={item.id}/>
-                {(asPath === Paths.shopping_cart && countProductInCart) &&
+                {(asPath.includes(Paths.shopping_cart) && countProductInCart) &&
                     <CartProductCountButtons productId={item.id} count={countProductInCart.count}/>
                 }
-                {asPath !== Paths.shopping_cart && (<LikeButton productId={item.id} like={item.like}/>)}
+                {!asPath.includes(Paths.shopping_cart) && (<LikeButton productId={item.id} like={item.like}/>)}
             </div>
         </div>
     );

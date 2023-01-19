@@ -1,0 +1,9 @@
+.review-input-field {
+  &__buttons {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+    max-width: fit-content;
+    margin-left: calc(100% - 175px);
+  }
+}

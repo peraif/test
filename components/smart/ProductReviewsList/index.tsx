@@ -19,7 +19,13 @@ const ProductReviewsList = () => {
             <h4>Отзывы ( {item.reviews.length} ): </h4>
             <ul className={s["product-reviews"]}>
                 {item.reviews.map((review) => (
-                    <ReviewsItem key={review.review.id} item={review}/>
+                    <ReviewsItem
+                        productId={item.id}
+                        reviewId={review.review.id}
+                        key={review.review.id}
+                        reviewItem={review}
+                        accountName={review.review.name}
+                    />
                 ))}
             </ul>
         </div>

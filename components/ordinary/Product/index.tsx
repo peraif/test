@@ -43,7 +43,7 @@ const Product = ({item}: ProductProps) => {
                 <ProductCategory>{item.category}</ProductCategory>
                 <div className={s["product__ratings-block"]}>
                     <ProductRating productId={item.id} ratingCount={item.rating_count}/>
-                    <ProductReviewsCount onClick={openReviews} reviewsCount={item.reviews_count}/>
+                    {item.reviews && item.reviews.length > 0 && (<ProductReviewsCount onClick={openReviews} reviewsCount={item.reviews.length}/>)}
                 </div>
             </div>
             <ProductText

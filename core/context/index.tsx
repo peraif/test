@@ -11,6 +11,7 @@ interface AppContextInterface {
     clearCart?: () => void;
     setProductData?: (value: IProduct) => void;
     productData?: IProduct;
+    updateAnswers?: (newAnswerValue: string, newAnswerId: string, markedUser: string | null, userName?: string,) => void;
 }
 
 export const AppContext = createContext<AppContextInterface>({});
