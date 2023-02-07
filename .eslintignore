@@ -1,0 +1,7 @@
+/node_modules
+.next
+*.css
+*.scss
+README.md
+yarn.lock
+public

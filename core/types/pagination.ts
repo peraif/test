@@ -1,4 +1,3 @@
 export interface IPaginationItem {
-    length: number;
-
+  length: number;
 }

@@ -1,4 +1,3 @@
-
 export const MAX_VISIBLE_BUTTONS = 7;
 export const NUMBER_OF_BUTTONS_LEFT = 4;
 export const NUMBER_OF_BUTTONS_RIGHT = 3;
